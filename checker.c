@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <assert.h>
 
-int batteryIsOk(float temperature, float soc, float chargeRate) {
+int batteryIsOk(float temperature, float soc, float chargeRate) 
+{
   if(temperature_limit_chek()) 
   {
    return 0;
@@ -10,7 +11,8 @@ int batteryIsOk(float temperature, float soc, float chargeRate) {
   {
     return 0;
   } 
-  else(chargeRate_limit_chek()) {
+  else if(chargeRate_limit_chek()) 
+  {
     return 0;
   }
   return 1;
