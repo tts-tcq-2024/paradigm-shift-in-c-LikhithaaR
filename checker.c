@@ -1,22 +1,7 @@
 #include <stdio.h>
 #include <assert.h>
 
-int batteryIsOk(float temperature, float soc, float chargeRate) 
-{
-  if(temperature_limit_chek()) 
-  {
-   return 0;
-  } 
-  else if(soc_limit_chek()) 
-  {
-    return 0;
-  } 
-  else if(chargeRate_limit_chek()) 
-  {
-    return 0;
-  }
-  return 1;
-}
+
 
 
 int temperature_limit_chek(float temp){
@@ -49,6 +34,24 @@ float max_ChargeRate = 0.8;
     printf("ChargeRate out of range!\n");
     }
   return 0;
+}
+
+
+int batteryIsOk(float temperature, float soc, float chargeRate) 
+{
+  if(temperature_limit_chek()) 
+  {
+   return 0;
+  } 
+  else if(soc_limit_chek()) 
+  {
+    return 0;
+  } 
+  else if(chargeRate_limit_chek()) 
+  {
+    return 0;
+  }
+  return 1;
 }
 int main() {
   assert(batteryIsOk(25, 70, 0.7));
