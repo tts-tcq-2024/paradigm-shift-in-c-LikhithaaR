@@ -18,7 +18,7 @@ float max_temperature = 45;
 int soc_limit_chek(float SOC){
 float min_SOC = 20;
 float max_SOC = 80; 
-  if((SOC < min_SOC)) || (SOC > max_SOC))
+  if((SOC < min_SOC) || (SOC > max_SOC))
     {
     printf("SOC out of range!\n");
     }
