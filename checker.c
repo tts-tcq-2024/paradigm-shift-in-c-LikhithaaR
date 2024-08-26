@@ -39,15 +39,15 @@ float max_ChargeRate = 0.8;
 
 int batteryIsOk(float temperature, float soc, float chargeRate) 
 {
-  if(temperature_limit_chek()) 
+  if(temperature_limit_chek(temperature)) 
   {
    return 0;
   } 
-  else if(soc_limit_chek()) 
+  else if(soc_limit_chek(soc)) 
   {
     return 0;
   } 
-  else if(chargeRate_limit_chek()) 
+  else if(chargeRate_limit_chek(chargeRate)) 
   {
     return 0;
   }
