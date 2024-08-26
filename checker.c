@@ -7,7 +7,7 @@
 int temperature_limit_chek(float temp){
 float min_temperature = 0;
 float max_temperature = 45; 
-  if((temp < min_temperature)) || (temp > max_temperature))
+  if((temp < min_temperature) || (temp > max_temperature))
     {
     printf("Temperature out of range!\n");
     }
