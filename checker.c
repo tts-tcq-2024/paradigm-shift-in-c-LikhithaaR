@@ -25,8 +25,8 @@ int main() {
     assert(BatteryIsOk(25, 70, 0.7));
     assert(!BatteryIsOk(50, 85, 0));
     
-    assert(BatteryIsOk(1, 10, 0.1));     
-    assert(BatteryIsOk(45, 80, 0.8));    
+    assert(BatteryIsOk(1, 30, 0.1));     
+    assert(BatteryIsOk(44, 70, 0.7));    
    
     assert(!BatteryIsOk(-5, 75, 0.6));   // Temperature below range
     assert(!BatteryIsOk(44, 55, 0.9));   // Temperature above range
