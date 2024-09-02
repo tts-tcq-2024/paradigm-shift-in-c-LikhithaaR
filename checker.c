@@ -1,95 +1,40 @@
 #include <stdio.h>
-
 #include <assert.h>
- 
-typedef enum {
-    BATTERY_OK,
-    TEMPERATURE_OUT_OF_RANGE,
-    SOC_OUT_OF_RANGE,
-    CHARGERATE_OUT_OF_RANGE
-} BatteryStatus;
- 
 
-BatteryStatus checkTemperature(float temperature) {
+#define TEMPERATURE_ERROR "Temperature is out of range!"  
+#define SOC_ERROR "State of Charge is out of range!"
+#define CHARGE_RATE_ERROR "Charge Rate is out of range!"
 
-  if(temperature < 0 || temperature > 45){
-        return TEMPERATURE_OUT_OF_RANGE;
+int CheckAndPrintValue(float value, float min_value, float max_value, const char* errormessage) {
+    if (value < min_value || value > max_value) {
+        printf("%s", errormessage);
+        return 0;
     }
-    return BATTERY_OK;
+    return 1;
 }
- 
-BatteryStatus checkSOC(float soc) {
 
-    if (soc < 20 || soc > 80){
-      return SOC_OUT_OF_RANGE;
-    }
-    return BATTERY_OK;
+int BatteryIsOk(float temperature, float soc, float chargeRate) {
+    int isTemperatureOk = CheckAndPrintValue(temperature, 0, 45, TEMPERATURE_ERROR);
+    int isSocOk = CheckAndPrintValue(soc, 20, 80, SOC_ERROR);
+    int isChargeRateOk = CheckAndPrintValue(chargeRate, 0, 0.8, CHARGE_RATE_ERROR);
+
+    return isTemperatureOk && isSocOk && isChargeRateOk;
 }
- 
-BatteryStatus checkChargeRate(float chargeRate) {
 
-    if (chargeRate > 0.8) {
-      return CHARGERATE_OUT_OF_RANGE;
-    }
-    return BATTERY_OK;
-
-}
- 
-BatteryStatus batteryIsOk(float temperature, float soc, float chargeRate) {
-
-    BatteryStatus status;
- 
-    status = checkTemperature(temperature);
-
-    if (status != BATTERY_OK) return status;
- 
-    status = checkSOC(soc);
-
-    if (status != BATTERY_OK) return status;
- 
-    status = checkChargeRate(chargeRate);
-
-    return status;
-
-}
- 
-// Function to print error message based on BatteryStatus
-
-void printErrorMessage(BatteryStatus status) {
-
-    switch (status) {
-
-        case TEMPERATURE_OUT_OF_RANGE:
-            printf("Temperature out of range!\n");
-            break;
-
-        case SOC_OUT_OF_RANGE:
-            printf("State of Charge is out of range!\n");
-            break;
-
-        case CHARGERATE_OUT_OF_RANGE:
-            printf("Charge Rate is out of range!\n");
-            break;
-        case BATTERY_OK:
-
-        default:
-
-            break;
-
-    }
-
-}
- 
 int main() {
-
-    BatteryStatus status;
-
-    status = batteryIsOk(25, 70, 0.7); 
-    status = batteryIsOk(50, 70, 0.7);
-    printErrorMessage(status);
-
-    return 0;
+    assert(BatteryIsOk(25, 70, 0.7));
+    assert(!BatteryIsOk(50, 85, 0));
+    
+    assert(BatteryIsOk(1, 10, 0.1));     
+    assert(BatteryIsOk(45, 80, 0.8));    
+   
+    assert(!BatteryIsOk(-5, 75, 0.6));   // Temperature below range
+    assert(!BatteryIsOk(44, 55, 0.9));   // Temperature above range
+    
+    assert(!BatteryIsOk(23, 15, 0.7));   // SOC below range
+    assert(!BatteryIsOk(20, 86, 0.7));   // SOC above range
+    // Test cases for invalid charge rate
+    assert(!BatteryIsOk(25, 70, 0.9));   // Charge rate above range
 
 }
 
- 
