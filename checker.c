@@ -6,7 +6,7 @@
 #define CHARGE_RATE_ERROR "Charge Rate is out of range!"
 
 int CheckAndPrintValue(float value, float min_value, float max_value, const char* errormessage) {
-    if (value < min_value || value > max_value) {
+    if (value < min_value || value > max_value) { 
         printf("%s", errormessage);
         return 0;
     }
